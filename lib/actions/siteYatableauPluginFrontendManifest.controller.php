@@ -23,8 +23,6 @@ class siteYatableauPluginFrontendManifestController extends waViewController
             'id'           => null,
             'logo_file'    => null,
             'widget_color' => '#ffffff',
-            'enabled'      => 0,
-            'show_title'   => 1
         );
 
         foreach ($all_domain_settings as $d) {
@@ -40,12 +38,10 @@ class siteYatableauPluginFrontendManifestController extends waViewController
 
         $logo = $path = wa()->getDataUrl("plugins/yatableau/$domain_id/", true, null, true) . $domain_settings['logo_file'];
         $data = array(
-            'version'     => "1.0",
             'api_version' => 4,
             'layout'      => array(
-                'logo'       => $logo,
-                'color'      => $domain_settings['widget_color'],
-                'show_title' => ($domain_settings['show_title'] ? true : false)
+                'logo'  => $logo,
+                'color' => $domain_settings['widget_color']
             )
         );
 

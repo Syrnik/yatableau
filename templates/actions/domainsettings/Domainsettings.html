@@ -1,0 +1,174 @@
+<link rel="stylesheet" href="/wa-content/js/jquery-plugins/jquery-colorpicker/colorpicker.css">
+<script type="text/javascript" src="/wa-content/js/jquery-plugins/jquery-colorpicker/jquery.colorpicker.js"></script>
+<script type="text/javascript">
+    document.title = '[`Site setup`] — ' + {$domain|default:'No domain'|json_encode};
+</script>
+
+<div class="content">
+    <div class="s-white s-editor">
+        <div class="block s-grey-toolbar">
+            <div class="float-right">
+                <ul class="menu-h">
+                    <li><a id="s-plugin-yatableau-domainsettings-delete" href="#"><i
+                                    class="icon16 delete"></i>Удалить</a></li>
+                </ul>
+            </div>
+            <h4>Настройки домена для Яндекс.Табло</h4>
+        </div>
+        <div>
+            <div class="block double-padded fields form">
+                <form target="s-plugin-yatableau-domainsettings-iframe" id="s-plugin-yatableau-domainsettings-form"
+                      method="post"
+                      action="?plugin=yatableau&module=domainsettings&action=save&domain_id={$domain_info.id}"
+                      enctype="multipart/form-data">
+                    {$wa->csrf()}
+                    <div class="field" style="margin-bottom: 1em">
+                        <div class="value">
+                            <div id="s-plugin-yatableau-current-widget"
+                                 style="{if !$domain_settings.logo_file}display: none{/if};position:relative;background-color: {$domain_settings.widget_color};width: 300px;height: 150px;">
+                                {if $domain_settings.logo_file}<img
+                                    src="{$wa_url}wa-data/public/site/plugins/yatableau/{$domain_info.id}/{$domain_settings.logo_file}"
+                                    alt="Logo"
+                                    style="display: block;position: absolute;top:50%;left:50%;transform: translate(-50%,-50%);">{/if}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="name">Цвет виджета</div>
+                        <div class="value">
+                            <input type="hidden" name="widget_color" value="{$domain_settings.widget_color}">
+                            <a href="javascript:void(0)" id="s-plugin-yatableau-colorpicker-link"
+                               style="display: inline-block; width: 50px;height: 50px;border: 2px solid lightslategray;border-radius: 3px;position: relative; background-color: {$domain_settings.widget_color}">
+                                <div style="position: absolute;right: -1px;bottom: -1px;border: 1px solid lightslategray">
+                                    <i class="icon16 uarr" style="margin: 0"></i></div>
+                            </a>
+                            {if isset($color_message)}<br><span class="small red">{$color_message}</span>{/if}
+                        </div>
+                        <div class="field" style="margin-bottom: 1em">
+                            <div class="name">Логотип</div>
+                            <div class="value">
+                                <input type="file" name="logo">
+                                {if isset($logo_message)}<br><span class="small red">{$logo_message}</span>{/if}
+                                <br><a href="javascript:void(0);" id="s-plugin-yatableau-logo-help-link"
+                                       class="small inline-link"><i class="icon10 darr"></i>
+                                    <b><i>Требования к логотипу</i></b></a>
+
+                                <div style="display: none;border:1px solid lightslategray"
+                                     id="s-plugin-yatableau-logo-help" class="block padded">
+                                    <a href="https://tech.yandex.ru/browser/tableau/doc/dg/concepts/create-widget-docpage/#widget-req"
+                                       target="_blank">Подробные требования на сайте Яндекс <i
+                                                class="icon16 new-window"></i></a>
+
+                                    <p>Картинка-логотип должна отвечать следующим требованиям:</p>
+                                    <ol>
+                                        <li>Формат PNG.</li>
+                                        <li>Прозрачный фон.</li>
+                                        <li>Логотип должен гармонировать с цветом заливки виджета.</li>
+                                        <li>Не следует стремиться заполнить логотипом все допустимое пространство на
+                                            виджете. Основной индикатор — это цвет виджета, логотип служит лишь
+                                            дополнением.
+                                        </li>
+                                        <li>Ограничения по размеру логотипа:
+                                            <ul>
+                                                <li>длинные горизонтальные логотипы — ширина до 300 пикселей, высота до
+                                                    85 пикселей;
+                                                </li>
+                                                <li>короткие горизонтальные логотипы — ширина до 250 пикселей, высота до
+                                                    120 пикселей;
+                                                </li>
+                                                <li>квадратные логотипы могут быть до 120 пикселей в высоту;</li>
+                                                <li>длина логотипа не должна превышать его ширину более, чем в 4,6 раза.
+                                                    На рисунке показано, какую примерно площадь должен занимать логотип
+                                                    на виджете.
+                                                </li>
+                                            </ul>
+                                            <img src="/wa-apps/site/plugins/yatableau/img/logo-help-proportions.png"
+                                                 alt="Ghbvерные пропорции">
+                                        </li>
+                                        <li>Размер файла логотипа — не более 300 КБ.</li>
+                                    </ol>
+                                    <p>Пример</p>
+                                    <ul>
+                                        <li>Неудачный логотип (слишком большой)<br><img
+                                                    src="/wa-apps/site/plugins/yatableau/img/logo-help-bad-logo.png"
+                                                    alt="Неудачный логотип"></li>
+                                        <li>Удачный логотип <br><img
+                                                    src="/wa-apps/site/plugins/yatableau/img/logo-help-good-logo.png"
+                                                    alt="Удачный логотип"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="value">
+                                <input type="submit" name="save" class="button green" value="{_w('Save')}">
+                                <span id="s-plugin-yatableau-domainsettings-form-status"
+                                      style="display:none">[`Saved`]</span>
+                            </div>
+                        </div>
+                </form>
+                <iframe style="display:none" name="s-plugin-yatableau-domainsettings-iframe"
+                        id="s-plugin-yatableau-domainsettings-iframe"></iframe>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#s-plugin-yatableau-colorpicker-link').ColorPicker({
+            color: $('input[name="widget_color"]', '#s-plugin-yatableau-domainsettings-form').val(),
+            onShow: function (colorpick) {
+                $(colorpick).fadeIn(500);
+                return false;
+            },
+            onHide: function (colorpick) {
+                $(colorpick).fadeOut(500);
+                return false;
+            },
+            onSubmit: function (hsb, hex, rgb) {
+                $('#s-plugin-yatableau-colorpicker-link').css('backgroundColor', '#' + hex);
+                $('input[name="widget_color"]', '#s-plugin-yatableau-domainsettings-form').val('#' + hex);
+                $('#s-plugin-yatableau-colorpicker-link').ColorPickerHide();
+            }
+        });
+        $('#s-plugin-yatableau-logo-help-link').click(function () {
+            var $icon = $('i.icon10', this);
+            var $help_div = $('#s-plugin-yatableau-logo-help');
+            if ($help_div.is(':visible'))
+                $icon.removeClass('uarr').addClass('darr');
+            else
+                $icon.removeClass('darr').addClass('uarr');
+            $help_div.slideToggle(500);
+        });
+        $("#s-plugin-yatableau-domainsettings-form").submit(function () {
+            $("#s-plugin-yatableau-domainsettings-iframe").one('load', function () {
+                var response = $.parseJSON($(this).contents().find('body').html());
+                var $status_span = $('#s-plugin-yatableau-domainsettings-form-status');
+                if (response.status == 'ok') {
+                    $status_span.html("[`Saved`]").css('color', '#000');
+                    $status_span.fadeIn("slow", function () {
+                        $("#s-settings-form-status").fadeOut(3000);
+                    });
+                    location.reload();
+                } else {
+                    $status_span.html(response.errors ? response.errors : response).css('color', 'red');
+                    $status_span.fadeIn("slow");
+                }
+            });
+        });
+        $("#s-plugin-yatableau-domainsettings-delete").click(function () {
+            if (!confirm('Вы действительно хотите удалить виджет для этого домена?')) {
+                return false;
+            }
+            $.post(
+                    '?plugin=yatableau&module=domainsettings&action=delete',
+                    "domain_id={$domain_info.id}",
+                    function (response) {
+                        location.reload();
+                    }, "json");
+            return false;
+        });
+    });
+</script>

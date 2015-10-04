@@ -16,11 +16,9 @@ class siteYatableauPluginDomainsettingsSaveController extends waJsonController
         $domains_settings = $plugin->getSettings('domains');
         $logo_file = $this->saveLogo($domain_id);
         $widget_color = $this->getRequest()->post('widget_color', '#ffffff');
-        $show_title = $this->getRequest()->post('show_title', 0);
 
         $data = array(
             'id'           => $domain_id,
-            'show_title'   => $show_title,
             'logo_file'    => ($logo_file ? $logo_file : ''),
             'widget_color' => $widget_color
         );
