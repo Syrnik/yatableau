@@ -35,7 +35,7 @@ class siteYatableauPluginFrontendManifestController extends waViewController
         }
 
 
-        $logo = $path = wa()->getDataUrl("plugins/yatableau/$domain_id/", true, null, true) . $domain_settings['logo_file'];
+        $logo = wa()->getDataUrl("plugins/yatableau/$domain_id/", true, null, true) . $domain_settings['logo_file'];
         $data = array(
             'api_version' => 4,
             'layout'      => array(
