@@ -42,7 +42,7 @@ class siteYatableauPluginHelper
         $logo = $path = wa()->getDataUrl("plugins/yatableau/$domain_id/", true) . $domain_settings['logo_file'];
 
         return
-            '<meta rel="yandex-tableau-widget" href="' .
+            '<link rel="yandex-tableau-widget" href="' .
             wa()->getRouteUrl('site/yatableau/manifest', array('domain' => $domain_info['name']), true) .
             '" />';
     }

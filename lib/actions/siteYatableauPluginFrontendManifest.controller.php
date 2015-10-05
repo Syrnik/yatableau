@@ -31,7 +31,7 @@ class siteYatableauPluginFrontendManifestController extends waViewController
             }
         }
 
-        if (!$domain_settings['enabled'] || !$domain_settings['logo_file']) {
+        if (!$domain_settings['logo_file']) {
             throw new waException('Not found');
         }
 
