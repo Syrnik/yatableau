@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author Serge Rodovnichenko <serge@syrnik.com>
+ * @version 1.0.0
+ * @copyright Serge Rodovnichenko, 2015
+ */
 class siteYatableauPlugin extends sitePlugin
 {
     public function handlerBackendSidebar()

@@ -2,9 +2,8 @@
 
 /**
  * @author Serge Rodovnichenko <serge@syrnik.com>
- * @version
+ * @version 1.0.0
  * @copyright Serge Rodovnichenko, 2015
- * @license
  */
 class siteYatableauPluginHelper
 {
