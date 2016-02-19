@@ -2,7 +2,7 @@
 return array(
     'name'     => 'Yandex.Tableau',
     'icon'     => 'img/yatableau.gif',
-    'version'  => '1.0.0',
+    'version'  => '1.0.1',
     'vendor'   => '670917',
     'frontend' => true,
     'settings' => true,
